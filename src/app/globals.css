@@ -1,0 +1,286 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --background: 0 0% 98%;
+  --foreground: 240 3% 7%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 3% 7%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 3% 7%;
+  --primary: 240 3% 7%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 240 5% 96%;
+  --secondary-foreground: 240 3% 7%;
+  --muted: 240 5% 96%;
+  --muted-foreground: 240 4% 40%;
+  --accent: 240 5% 96%;
+  --accent-foreground: 240 3% 7%;
+  --border: 240 6% 90%;
+  --input: 240 6% 90%;
+  --ring: 240 3% 7%;
+  --radius: 0.5rem;
+  --font-sans: "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", monospace;
+  --surface-gradient:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.88) 0%,
+      rgba(244, 244, 245, 0.88) 48%,
+      rgba(228, 228, 231, 0.56) 100%
+    );
+}
+
+.dark {
+  color-scheme: dark;
+  --background: 225 16% 4%;
+  --foreground: 0 0% 96%;
+  --card: 225 14% 6%;
+  --card-foreground: 0 0% 98%;
+  --popover: 225 14% 6%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 240 6% 6%;
+  --secondary: 225 12% 9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 225 10% 12%;
+  --muted-foreground: 220 7% 65%;
+  --accent: 225 10% 13%;
+  --accent-foreground: 0 0% 98%;
+  --border: 0 0% 100% / 0.1;
+  --input: 0 0% 100% / 0.13;
+  --ring: 0 0% 96%;
+  --surface-gradient:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.045) 0%,
+      rgba(255, 255, 255, 0.015) 45%,
+      rgba(0, 0, 0, 0.02) 100%
+    );
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    letter-spacing: 0;
+  }
+
+  ::selection {
+    background: hsl(var(--foreground) / 0.12);
+  }
+}
+
+@layer components {
+  .section-y {
+    @apply py-16 md:py-24;
+  }
+
+  .surface-card,
+  .card {
+    @apply rounded-lg border border-border bg-card text-card-foreground shadow-sm;
+    background: var(--surface-gradient), hsl(var(--card));
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      background-color 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .button {
+    transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease, border-color 160ms ease;
+  }
+
+  .button-primary,
+  .button-secondary {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-5 text-sm font-semibold outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+
+  .button-primary {
+    @apply bg-primary text-primary-foreground shadow-sm;
+  }
+
+  .button-secondary {
+    @apply border border-border bg-background text-foreground shadow-sm;
+  }
+
+  .portrait {
+    transition: transform 180ms ease, box-shadow 180ms ease;
+  }
+
+  .theme-trigger {
+    @apply bg-transparent shadow-none;
+    border: 0;
+  }
+
+  .theme-trigger:hover {
+    background: hsl(var(--foreground) / 0.06);
+  }
+
+  .mobile-nav-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    background: rgba(0, 0, 0, 0.58);
+  }
+
+  .mobile-nav-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    width: min(400px, calc(100vw - 24px));
+    height: 100dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    opacity: 1;
+    background: #ffffff;
+    color: #111113;
+    border-left: 1px solid #e4e4e7;
+    box-shadow: -18px 0 48px rgba(0, 0, 0, 0.18);
+  }
+
+  .dark .mobile-nav-drawer {
+    background: #0b0c0e;
+    color: #f5f5f5;
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: -18px 0 48px rgba(0, 0, 0, 0.45);
+  }
+
+  .mobile-nav-content {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 20px;
+  }
+
+  .mobile-nav-main {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .mobile-nav-item {
+    width: 100%;
+    min-height: 64px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 8px;
+  }
+
+  .capability-card {
+    --accent-rgb: 162 162 162;
+    background:
+      linear-gradient(
+        135deg,
+        rgb(var(--accent-rgb) / 0.14) 0%,
+        rgb(var(--accent-rgb) / 0.05) 36%,
+        hsl(var(--card)) 72%
+      ),
+      hsl(var(--card));
+    border-color: rgb(var(--accent-rgb) / 0.24);
+  }
+
+  .capability-card:hover {
+    background:
+      linear-gradient(
+        135deg,
+        rgb(var(--accent-rgb) / 0.18) 0%,
+        rgb(var(--accent-rgb) / 0.07) 36%,
+        hsl(var(--accent)) 72%
+      ),
+      hsl(var(--accent));
+    border-color: rgb(var(--accent-rgb) / 0.34);
+  }
+
+  .capability-card .capability-icon {
+    background: rgb(var(--accent-rgb) / 0.14);
+    color: rgb(var(--accent-rgb));
+  }
+
+  .capability-card .capability-title {
+    color: rgb(var(--accent-rgb));
+  }
+
+  .capability-card .badge {
+    border-color: rgb(var(--accent-rgb) / 0.22);
+    color: rgb(var(--accent-rgb));
+    background: rgb(var(--accent-rgb) / 0.08);
+  }
+
+  .capability-violet {
+    --accent-rgb: 168 85 247;
+  }
+
+  .capability-blue {
+    --accent-rgb: 59 130 246;
+  }
+
+  .capability-green {
+    --accent-rgb: 34 197 94;
+  }
+
+  .capability-amber {
+    --accent-rgb: 249 115 22;
+  }
+
+  .badge:hover {
+    @apply bg-accent text-accent-foreground;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .surface-card:hover,
+  .card:hover {
+    transform: translateY(-3px);
+    background: var(--surface-gradient), hsl(var(--accent));
+    border-color: hsl(var(--foreground) / 0.18);
+    box-shadow: 0 16px 34px hsl(0 0% 0% / 0.25);
+  }
+
+  :root:not(.dark) .surface-card:hover,
+  :root:not(.dark) .card:hover {
+    box-shadow: 0 14px 30px hsl(240 4% 10% / 0.09);
+  }
+
+  .button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px hsl(var(--foreground) / 0.06);
+  }
+
+  .portrait:hover {
+    transform: scale(1.015);
+    box-shadow: 0 0 0 4px hsl(var(--foreground) / 0.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .card:hover,
+  .surface-card:hover,
+  .button:hover,
+  .portrait:hover {
+    transform: none !important;
+  }
+}
